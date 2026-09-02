@@ -1,453 +1,64 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة الألعاب - ألعاب متصفح مجانية</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --accent-purple: #8b5cf6;
-            --accent-cyan: #06b6d4;
-            --accent-hover: #7c3aed;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
-            --ad-bg: #1e293b;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-
-        /* Navbar */
-        header {
-            background-color: var(--bg-secondary);
-            border-bottom: 2px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo span {
-            color: var(--accent-cyan);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-cyan);
-        }
-
-        /* Container Layout */
-        .main-container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 2rem;
-        }
-
-        @media (max-width: 900px) {
-            .main-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Ad Banners */
-        .ad-banner-top {
-            max-width: 1200px;
-            margin: 1.5rem auto 0;
-            padding: 0 1rem;
-        }
-
-        .ad-box {
-            background: var(--ad-bg);
-            border: 1px dashed var(--accent-purple);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 10px;
-        }
-
-        .ad-leaderboard {
-            width: 100%;
-            height: 90px;
-        }
-
-        .ad-sidebar {
-            width: 100%;
-            height: 600px;
-        }
-
-        /* Featured Game Section */
-        .game-screen-container {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border-color);
-        }
-
-        .game-title-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .game-title-bar h2 {
-            font-size: 1.4rem;
-            color: var(--accent-cyan);
-        }
-
-        .iframe-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            background-color: #000;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .iframe-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .game-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .btn-fullscreen {
-            background-color: var(--accent-purple);
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1.2rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background 0.3s;
-        }
-
-        .btn-fullscreen:hover {
-            background-color: var(--accent-hover);
-        }
-
-        /* Categories Filter */
-        .categories {
-            display: flex;
-            gap: 10px;
-            margin: 2rem 0 1rem;
-            flex-wrap: wrap;
-        }
-
-        .cat-btn {
-            background: var(--bg-secondary);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .cat-btn.active, .cat-btn:hover {
-            background: var(--accent-purple);
-            border-color: var(--accent-purple);
-        }
-
-        /* Games Grid */
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-            padding-right: 12px;
-        }
-
-        .section-title::before {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 80%;
-            background-color: var(--accent-cyan);
-            border-radius: 2px;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .game-card {
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
-            border-color: var(--accent-purple);
-        }
-
-        .game-card img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .game-card-info {
-            padding: 0.8rem;
-        }
-
-        .game-card-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .game-card-cat {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 1rem;
-            margin-top: 4rem;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-cyan);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لعبة Moto X3M Pool Party</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #0f172a;
+      color: #ffffff;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 10px;
+    }
+    header {
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      padding: 15px 0;
+    }
+    h1 {
+      font-size: 1.5rem;
+      color: #38bdf8;
+      margin-bottom: 5px;
+    }
+    .game-container {
+      width: 100%;
+      max-width: 900px;
+      height: 80vh;
+      background-color: #000000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <header>
-        <div class="navbar">
-            <a href="#" class="logo">🎮 عالم <span>الألعاب</span></a>
-            <ul class="nav-links">
-                <li><a href="#">الرئيسية</a></li>
-                <li><a href="#">ألعاب أكشن</a></li>
-                <li><a href="#">ألعاب ذكاء</a></li>
-                <li><a href="#">ألعاب سيارات</a></li>
-            </ul>
-        </div>
-    </header>
+  <header>
+    <h1>🚴‍♂️ لعبة Moto X3M Pool Party</h1>
+  </header>
 
-    <!-- Top Ad Banner -->
-    <div class="ad-banner-top">
-        <div class="ad-box ad-leaderboard">
-            📌 مساحة إعلانية علوية (728x90) - ضع كود إعلانات Google أو Monetag هنا
-        </div>
-    </div>
+  <main class="game-container">
+    <iframe 
+      src="https://play.famobi.com/moto-x3m-pool-party" 
+      allowfullscreen>
+    </iframe>
+  </main>
 
-    <!-- Main Content Layout -->
-    <div class="main-container">
-
-        <!-- Main Column -->
-        <main>
-            <!-- Game Player Section -->
-            <section class="game-screen-container">
-                <div class="game-title-bar">
-                    <h2 id="current-game-title">لعبة السباق السريع (نموذج)</h2>
-                    <span style="font-size: 0.85rem; color: var(--text-muted);">ألعاب مجانية بدون تحميل</span>
-                </div>
-
-                <div class="iframe-wrapper">
-                    <!-- استبدل هذا الرابط بكود التضمين الذي ستأخذه من GameDistribution -->
-                    <iframe id="game-iframe" src="https://html5.gamedistribution.com/rvvASmSc41893d18386144e58b160b7305d21051/" allowfullscreen></iframe>
-                </div>
-
-                <div class="game-actions">
-                    <p style="font-size: 0.9rem; color: var(--text-muted);">استمتع باللعب مباشرة عبر المتصفح!</p>
-                    <button class="btn-fullscreen" onclick="toggleFullScreen()">🖥️ شاشة كاملة</button>
-                </div>
-            </section>
-
-            <!-- Categories Filter -->
-            <div class="categories">
-                <button class="cat-btn active">الكل</button>
-                <button class="cat-btn">أكشن</button>
-                <button class="cat-btn">ذكاء وألغاز</button>
-                <button class="cat-btn">سيارات</button>
-                <button class="cat-btn">رياضة</button>
-            </div>
-
-            <!-- Games Catalogue -->
-            <section>
-                <h3 class="section-title">أحدث الألعاب المتاحة</h3>
-                <div class="games-grid">
-
-                    <!-- Game 1 -->
-                    <div class="game-card" onclick="loadGame('https://html5.gamedistribution.com/rvvASmSc41893d18386144e58b160b7305d21051/', 'سباق السيارات ثلاثي الأبعاد')">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400" alt="سباق سيارات">
-                        <div class="game-card-info">
-                            <div class="game-card-title">سباق السيارات 3D</div>
-                            <div class="game-card-cat">سيارات</div>
-                        </div>
-                    </div>
-
-                    <!-- Game 2 -->
-                    <div class="game-card" onclick="loadGame('https://html5.gamedistribution.com/b5f39e31d4e7492c9f4d1e2f5bdfb678/', 'لغز المتاهة')">
-                        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=400" alt="لغز المتاهة">
-                        <div class="game-card-info">
-                            <div class="game-card-title">لغز المتاهة</div>
-                            <div class="game-card-cat">ذكاء وألغاز</div>
-                        </div>
-                    </div>
-
-                    <!-- Game 3 -->
-                    <div class="game-card" onclick="loadGame('https://html5.gamedistribution.com/rvvASmSc41893d18386144e58b160b7305d21051/', 'مغامرة البطل الشجاع')">
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400" alt="أكشن">
-                        <div class="game-card-info">
-                            <div class="game-card-title">مغامرة البطل</div>
-                            <div class="game-card-cat">أكشن</div>
-                        </div>
-                    </div>
-
-                    <!-- Game 4 -->
-                    <div class="game-card" onclick="loadGame('https://html5.gamedistribution.com/b5f39e31d4e7492c9f4d1e2f5bdfb678/', 'كرة القدم السريعة')">
-                        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400" alt="كرة القدم">
-                        <div class="game-card-info">
-                            <div class="game-card-title">كرة القدم السريعة</div>
-                            <div class="game-card-cat">رياضة</div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-        </main>
-
-        <!-- Sidebar (Ads) -->
-        <aside>
-            <div class="ad-box ad-sidebar">
-                📌 مساحة إعلانية جانبيّة (300x600)<br>
-                يمكنك وضع بنر إعلاني من Google AdSense أو Monetag هنا للربح.
-            </div>
-        </aside>
-
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-links">
-            <a href="#">الرئيسية</a>
-            <a href="#">من نحن</a>
-            <a href="#">سياسة الخصوصية</a>
-            <a href="#">اتصل بنا</a>
-        </div>
-        <p>جميع الحقوق محفوظة © 2026 - موقع ألعاب المتصفح المجانية</p>
-    </footer>
-
-    <!-- JavaScript -->
-    <script>
-        function loadGame(url, title) {
-            document.getElementById('game-iframe').src = url;
-            document.getElementById('current-game-title').innerText = title;
-            window.scrollTo({ top: 100, behavior: 'smooth' });
-        }
-
-        function toggleFullScreen() {
-            var iframe = document.getElementById('game-iframe');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) {
-                iframe.msRequestFullscreen();
-            }
-        }
-    </script>
 </body>
 </html>
